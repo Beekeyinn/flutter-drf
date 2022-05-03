@@ -6,7 +6,7 @@ class AppBloc {
 
   final _repository = Repository();
   final _fetcher = PublishSubject<ListItemModel>();
-  Observable<ListItemModel> get allData => _fetcher.stream;
+  // Observable<ListItemModel> get allData => _fetcher.stream;
 
   Repository repository()
   {

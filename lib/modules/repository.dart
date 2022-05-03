@@ -7,7 +7,7 @@ import 'model.dart';
 class Repository {
   final apiProvider = ApiProvider();
 
-  Future<ListItemModel> getStudents(Map<String, String> key_val) => apiProvider.doPost("students", key_val);
-  Future<ListItemModel> addStudent(Map<String, String> key_val) => apiProvider.doPost("student/insert", key_val);
+  Future<ListItemModel> getStudents(Map<String, String> key_val) => apiProvider.doGet("students/");
+  Future<ListItemModel> addStudent(Map<String, String> key_val) => apiProvider.doPost("student/insert/", key_val);
 
 }

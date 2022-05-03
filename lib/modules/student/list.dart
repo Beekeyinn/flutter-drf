@@ -31,18 +31,13 @@ class StudentListState extends State<StudentList>
   {
     Navigator.pop(t_context);
     screen_rendered = true;
-
-    if(result.data[0]['error'] == null)
+    if(result.data[0]['students'].length > 0)
     {
       setState(() {
-        messages = result.data[0]['data'];
+        messages = result.data[0]['students'];
         print("Data received");
         print(messages);
       });
-    }
-    else
-    {
-      showMessage(t_context, "Message", result.data[0]['error']);
     }
 
   }
@@ -50,6 +45,7 @@ class StudentListState extends State<StudentList>
   bool screen_rendered = false;
   void callbackOnBuild(BuildContext context)
   {
+    print("running");
     if(!screen_rendered) {
       showOverlay(context, "Loading...");
 
@@ -61,17 +57,17 @@ class StudentListState extends State<StudentList>
   Widget build(BuildContext context) {
 
     t_context = context;
-   // WidgetsBinding.instance.addPostFrameCallback((_) => callbackOnBuild(context));
+   WidgetsBinding.instance?.addPostFrameCallback((_) => callbackOnBuild(context));
 
 
     return Scaffold(
         appBar: AppBar(
           backgroundColor: NowUIColors.m_appbar_bg,
-          title: Text("All Students"),
+          title: Text("All Students List"),
           leadingWidth: 30,
         ),
         //drawer: BjlDrawer(currentPage: "messages"),
-        extendBodyBehindAppBar: true,
+        // extendBodyBehindAppBar: true,
         body: SingleChildScrollView(
           child: SafeArea(
               child: (screen_rendered && messages.length <= 0)?

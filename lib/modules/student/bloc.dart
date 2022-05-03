@@ -14,6 +14,7 @@ class StudentBloc extends AppBloc
 
   getAllStudents(Map<String, String> kval) async {
     ListItemModel itemModel = await repository().getStudents(kval);
+    print(itemModel);
     state.operationFinished(itemModel);
   }
 

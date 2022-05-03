@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'Theme.dart';
 
-String API_ENDPOINT = "http://192.168.56.1:8000/api/";
+String API_ENDPOINT = "http://192.168.1.67:8000/api/";
 //String TOKEN_ENDPOINT = "http://192.168.1.13/mark/public/sanctum/";
 
 class GlobalData

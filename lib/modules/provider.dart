@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart' as p;
 import 'package:http/http.dart' show Client;
@@ -33,6 +34,26 @@ class ApiProvider {
     }
     return file_present;
   }
+
+  Future <ListItemModel> doGet(String uri) async{
+    String urlx = makeRequestURL(uri);
+    if (kDebugMode) {
+      print(urlx);
+    }
+    var response = await client.get(
+      Uri.parse(urlx),
+      headers: <String,String>{
+        'Content-Type': 'application/json',
+      }
+    );
+    if (response.statusCode == 200){
+      return ListItemModel.fromJson(json.decode(response.body));
+    }else{
+      throw Exception("failled to fetch data");
+    }
+
+  }
+
 
   Future<ListItemModel> doPost(String uri, Map<String, String> key_val) async {
 
