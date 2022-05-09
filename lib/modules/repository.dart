@@ -9,5 +9,8 @@ class Repository {
 
   Future<ListItemModel> getStudents(Map<String, String> key_val) => apiProvider.doGet("students/");
   Future<ListItemModel> addStudent(Map<String, String> key_val) => apiProvider.doPost("student/insert/", key_val);
-
+  Future<ListItemModel> createStudent(Map<String, String> keyVal) => apiProvider.createStudent("student/insert/", keyVal);
+  Future<ListItemModel> getSingleStudent(int id)=>apiProvider.doGet("student/detail/",id: id);
+  Future<ListItemModel> editStudent(Map<String,String> keyVal,int id)=> apiProvider.editStudent("student/detail/", keyVal, id);
+  Future<bool> deleteStudent(int id)=>apiProvider.deleteStudent("student/detail/",id);
 }

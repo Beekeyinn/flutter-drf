@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:learn_app/modules/student/create.dart';
+import 'package:learn_app/modules/student/detail.dart';
 
 import 'commons/globals.dart';
 import 'modules/student/list.dart';
@@ -18,7 +20,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(fontFamily: 'RoboCondensed'),
         initialRoute: '/entry',
         routes: <String, WidgetBuilder>{
-          '/entry': (BuildContext context) => StudentList()
+          '/entry': (BuildContext context) => const StudentList(),
+          '/create': (BuildContext context) => const CreateStudent(),
         });
   }
 }
