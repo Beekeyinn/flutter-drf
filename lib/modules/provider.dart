@@ -111,15 +111,19 @@ class ApiProvider {
 
   Future<ListItemModel> createStudent(
       String uri, Map<String, dynamic> keyVal) async {
-    final queryParams =
-        "first_name=${keyVal['first_name']}&last_name=${keyVal['last_name']}&email=${keyVal['email']}";
-    String urlx = uri + "?" + queryParams;
-    String hitPoint = makeRequestURL(urlx);
+    // final queryParams =
+    //     "first_name=${keyVal['first_name']}&last_name=${keyVal['last_name']}&email=${keyVal['email']}";
+    // String urlx = uri + "?" + queryParams;
+    String hitPoint = makeRequestURL(uri);
 
-    var response = await client.get(
-      Uri.parse(hitPoint),
-      headers: <String, String>{"Content-Type": "application/json"},
-    );
+    // var response = await client.get(
+    //   Uri.parse(hitPoint),
+    //   headers: <String, String>{"Content-Type": "application/json"},
+    // );
+
+    var response = await client.post(Uri.parse(hitPoint),
+        headers: <String, String>{"Content-Type": "application/json"},
+        body: json.encode(keyVal));
 
     if (response.statusCode == 201) {
       var json = jsonDecode(response.body);

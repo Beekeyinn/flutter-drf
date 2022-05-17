@@ -32,7 +32,6 @@ class CreateStudentBloc extends AppBloc{
 
   void createStudent(Map<String,String> keyVal)async{
     ListItemModel res = await repository().createStudent(keyVal);
-    print(res.data);
     state.studentCreated(res);
   }
   void editStudent(Map<String,String> keyVal, String id)async{
