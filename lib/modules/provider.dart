@@ -32,7 +32,7 @@ class ApiProvider {
     return file_present;
   }
 
-  Future<ListItemModel> doGet(String uri, {int? id}) async {
+  Future<ListItemModel> doGet(String uri, {String? id}) async {
     if (id != null) {
       uri = uri + "$id/";
     }
@@ -130,7 +130,7 @@ class ApiProvider {
   }
 
   Future<ListItemModel> editStudent(
-      String uri, Map<String, String> keyVal, int id) async {
+      String uri, Map<String, String> keyVal, String id) async {
     String urlx = uri + "$id/";
 
     String hitPoint = makeRequestURL(urlx);
@@ -146,7 +146,7 @@ class ApiProvider {
     }
   }
 
-  Future<bool> deleteStudent(String uri, int id) async {
+  Future<bool> deleteStudent(String uri, String id) async {
     String urlx = "$uri$id/";
     String hitPoint = makeRequestURL(urlx);
     var response = await client.delete(Uri.parse(hitPoint),

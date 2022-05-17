@@ -3,8 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'Theme.dart';
-
-String API_ENDPOINT = "http://192.168.1.66:8000/api/";
+String API_ENDPOINT="http://192.168.1.84:8000/api/";
+// String API_ENDPOINT = "http://192.168.1.77:8000/api/";
+// String API_ENDPOINT = "http://192.168.1.66:8000/api/";
 // String API_ENDPOINT = "http://192.168.1.72:8000/api/";
 //String TOKEN_ENDPOINT = "http://192.168.1.13/mark/public/sanctum/";
 

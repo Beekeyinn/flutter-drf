@@ -42,7 +42,7 @@ class CreateStudentState extends State<CreateStudent> {
     bloc.createStudent(keyVal);
   }
 
-  void editStudent(Map<String, String> keyVal, int id) {
+  void editStudent(Map<String, String> keyVal, String id) {
     bloc.editStudent(keyVal, id);
   }
 

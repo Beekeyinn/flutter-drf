@@ -8,7 +8,7 @@ import 'package:learn_app/modules/student/list.dart';
 import 'bloc.dart';
 
 class StudentDetail extends StatefulWidget {
-  final int id;
+  final String id ;
 
   const StudentDetail({Key? key, required this.id}) : super(key: key);
 
@@ -56,7 +56,7 @@ class StudentDetailState extends State<StudentDetail> {
         });
   }
 
-  void deleteStudent(int id) async {
+  void deleteStudent(String id) async {
     bool deleted = await bloc.deleteStudent(id);
     if (deleted) {
       Navigator.pushReplacement<void, void>(context,
@@ -78,7 +78,7 @@ class StudentDetailState extends State<StudentDetail> {
   void studentLoaded(List<dynamic> result) {
     if (result.isNotEmpty) {
       setState(() {
-        students = result[0]['student'][0];
+        students = result[0]['data'][0];
       });
       loaded = true;
     }
@@ -86,6 +86,7 @@ class StudentDetailState extends State<StudentDetail> {
 
   void onBuild() {
     if (!loaded) {
+      print("iside detail"+widget.id);
       bloc.getSingleStudent(widget.id);
     }
   }
@@ -96,102 +97,121 @@ class StudentDetailState extends State<StudentDetail> {
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       onBuild();
     });
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("${students['first_name']} ${students['last_name']}"),
-          centerTitle: true,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
+
+
+
+    //(full_name != null)?Text(full_name):COntainer(width:0, height: 0)
+
+
+    if (loaded){
+      return Scaffold(
+          appBar: AppBar(
+            title: Text("${students['first_name']} ${students['last_name']}"),
+            centerTitle: true,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () => {Navigator.pop(context, true)},
             ),
-            onPressed: () => {Navigator.pop(context, true)},
           ),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          child: Card(
-              elevation: 60,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(5),
-                      child: SizedBox(
-                        width: double.infinity / 2,
-                        height: 30,
-                        child: Text(
-                          "Full Name:",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w800, fontSize: 24),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: SizedBox(
+          body: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            child: Card(
+                elevation: 60,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(5),
+                        child: SizedBox(
                           width: double.infinity / 2,
+                          height: 30,
                           child: Text(
-                            "${students['first_name']} ${students['last_name']}",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                            ),
-                          )),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(5),
-                      child: SizedBox(
-                        width: double.infinity / 2,
-                        height: 30,
-                        child: Text(
-                          "Email Address:",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w800, fontSize: 24),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: SizedBox(
-                          width: double.infinity / 2,
-                          child: Text(
-                            students['email'],
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                            ),
-                          )),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            createAlertDialog(context).then((value) {
-                              if (value == "ok") {
-                                deleteStudent(students['id']);
-                              }
-                            });
-                          },
-                          icon: const Icon(
-                            Icons.delete,
-                            color: Colors.red,
+                            "Full Name:",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w800, fontSize: 24),
                           ),
                         ),
-                        IconButton(
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: SizedBox(
+                            width: double.infinity / 2,
+                            child: Text(
+                              "${students['first_name']} ${students['last_name']}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                              ),
+                            )),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(5),
+                        child: SizedBox(
+                          width: double.infinity / 2,
+                          height: 30,
+                          child: Text(
+                            "Email Address:",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w800, fontSize: 24),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: SizedBox(
+                            width: double.infinity / 2,
+                            child: Text(
+                              students['email'],
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                              ),
+                            )),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
                             onPressed: () {
-                              redirectToEdit(students);
+                              createAlertDialog(context).then((value) {
+                                if (value == "ok") {
+                                  deleteStudent(students['id']);
+                                }
+                              });
                             },
                             icon: const Icon(
-                              Icons.edit,
-                              color: Colors.green,
-                            )),
-                      ],
-                    )
-                  ])),
-        ));
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                redirectToEdit(students);
+                              },
+                              icon: const Icon(
+                                Icons.edit,
+                                color: Colors.green,
+                              )),
+                        ],
+                      )
+                    ])),
+          ));
+    }else{
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text("Loading"),
+          centerTitle: true,
+        ),
+        body: Container(
+          padding: const EdgeInsets.all(50),
+          child: const Text("Loading"),
+        ),
+      );
+    }
   }
 }

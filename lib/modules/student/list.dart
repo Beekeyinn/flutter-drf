@@ -32,17 +32,18 @@ class StudentListState extends State<StudentList> {
   void operationFinished(ListItemModel result) {
     Navigator.pop(t_context);
     screen_rendered = true;
-    if (result.data[0]['students'].length > 0) {
+    if (result.data[0]['data'].length > 0) {
       setState(() {
-        messages = result.data[0]['students'];
+        messages = result.data[0]['data'];
       });
     }
   }
 
-  void redirectToDetail(int id) {
+  void redirectToDetail(String id) {
+    if(id.isEmpty)return;
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context)=>StudentDetail(id: id))
+      MaterialPageRoute(builder: (context)=>StudentDetail(id: id.toString()))
     ).then((_) => setState(() => {screen_rendered=false}));
   }
 

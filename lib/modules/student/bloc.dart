@@ -35,7 +35,7 @@ class CreateStudentBloc extends AppBloc{
     print(res.data);
     state.studentCreated(res);
   }
-  void editStudent(Map<String,String> keyVal, int id)async{
+  void editStudent(Map<String,String> keyVal, String id)async{
     ListItemModel res = await repository().editStudent(keyVal, id);
     state.studentCreated(res);
   }
@@ -47,11 +47,11 @@ class StudentDetailBloc extends AppBloc{
     state=studentDetailState;
   }
 
-  void getSingleStudent(int id)async{
+  void getSingleStudent(String id)async{
     ListItemModel item = await repository().getSingleStudent(id);
     state.studentLoaded(item.data);
   }
-  Future<bool> deleteStudent(int id)async{
+  Future<bool> deleteStudent(String id)async{
     bool deleted = await repository().deleteStudent(id);
     return deleted;
   }
